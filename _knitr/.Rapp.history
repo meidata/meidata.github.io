@@ -1,0 +1,100 @@
+area <- 2
+ls()
+My_brother <- c("Pan","Bai", "Lin")
+His_birthday <- c("08", "30","2015")
+name(My_brother) <- his birthday
+name(My_brother) <- His_birthday
+name( My_brother) <- His_birthday
+Today <- c("My", "younger", "brother","Panbailin")
+str(Today)
+attr(*,"name") = chr[1:4] "Happy" "birthday" "To" "You"
+- attr(*,"names") = chr[1:4] "Happy" "birthday" "To" "You"
+- attr( * ,"names") = chr[1:4] "Happy" "birthday" "To" "You"
+- attr("names") = chr[1:4] "Happy" "birthday" "To" "You"
+- attr(*, "names") = chr[1:4] "Happy" "birthday" "To" "You"
+Today<- c("My", "younger", "brother","Pan_Bai_Lin")
+He <- c("Smart","Kind","Thougful","lovely")
+assign(Today,he)
+assign(Today,He)
+str(He)
+named num[1:4]
+Today <- c("My", "younger", "brother","Panbailin")
+30thAugust <- c("Happy","birthday","To","You")
+Thirtieth_August <- c("Happy","birthday","To","You")
+names (Thirtieth_August) <- Today
+Thirtieth_August
+Thirtieth_August <- c(Happy,birthday,To,You)
+My_brother_is_hudsome <- smart
+My_brother_is_hudsome <- "smart"
+is.logical(My_brother_is_hudsome)
+My_brother_is_hudsome <- 10000
+is.logical(My_brother_is_hudsome)
+My_brother_is_hudsome <- 1
+is.logical(My_brother_is_hudsome)
+My_brother_is_hudsome <- 0
+is.logical(My_brother_is_hudsome)
+is.logical(Today)
+is.vector(My_brother_is_hudsome)
+Today <- c("My", "younger", "brother","Panbailin")
+Thirtieth_August <- c("Happy","birthday","To","You")
+names (Thirtieth_August) <- Today
+My_brother_is_Smart <- "plus_cute"
+Thirtieth_August
+is.vector(My_brother_is_Smart)
+Today <- c("My", "younger", "brother","Panbailin")
+Thirtieth_August <- c("Happy","birthday","To","You")
+names (Thirtieth_August) <- Today
+Thirtieth_August
+My_brother_is_hudsome <- "plus_smart"
+Today <- c("My", "younger", "brother","Panbailin")
+Thirtieth_August <- c("Happy","birthday","To","You")
+names (Thirtieth_August) <- Today
+Thirtieth_August
+My_brother_is_handsome <- "plus_smart"
+is.vector(My_brother_is_handsome)
+c("Rsome times",190,5)
+list("Rsome times",190,5)
+name<- c("ane","pete")
+age<- c(12,12,12,12)
+child <-c(TRUE,FALSE)
+DF <- data.frame(name,age,child)
+DF
+age<- c(12,12,12,12)
+age<- c(12,13,33,23)
+name<- c("ane","pete")
+child <-c(TRUE,FALSE)
+DF <- data.frame(name,age,child)
+DF
+i<- c(1,2)
+sd(i)
+help(sd)
+c<-sd(1:2) ^ 2
+c
+a <- c("a","b")#
+c <- c(1,2)#
+ht <- as.data.table(a,c)
+a <- c("a","b")#
+c <- c(1,2)#
+ht <- as.data.frame(a,c)
+a
+c
+as.character(c)
+ht <- data.table(a,c)
+ht <- as.data.frame(a,c)
+Thirtieth_August <- c("Happy","birthday","To","You")
+library(ggvis)
+library(dplyr)
+install.packages(ggvis)
+install.packages(dplyr)
+install.packages("dplyr")
+install.packages("ggvis")
+library(dplyr)
+library(ggvis)
+install.packages("ggmaps")
+getwd()
+dir()
+?dir()
+getwd()
+c(Sys.getenv("R_PROFILE_USER"), file.path(getwd(),".Rprofile"))
+Sys.getenv("R_PROFILE_USER")
+KnitPost()
