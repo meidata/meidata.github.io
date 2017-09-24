@@ -1,4 +1,3 @@
-
 packages <- c("ggplot2", "data.table", "gridExtra", "dplyr", "highcharter", "prettydoc")
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
   install.packages(setdiff(packages, rownames(installed.packages())))  
