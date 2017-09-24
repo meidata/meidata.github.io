@@ -5,7 +5,7 @@ output: html_document
 date: 2017-09-16
 ---
 
-  The second kaggle competition I've participated just ended yesterday, unfortunately due to a wrong selection of the submission and bad local cross-validation strategy, I ended up in the top 14% without any medals. But I have learned so much from this competition and also from others kagglers. And since this competition a.k.a 'business problem' can be replicated somehow somewhere in the real world, I decided to write a summery report of the features and the take away of this competition.
+  The second kaggle competition I've participated just ended yesterday. Unfortunately, due to a wrong selection of the submission and poor local cross-validation strategy, I ended up in the top 14% without any medals. But I have learned so much from this competition and also from others kagglers. And since this competition 'business problem' can be replicated somehow somewhere in the real world, I decided to write a short report of the features and the takeaway of this competition.
  
 #### 1. Problem formulation
 
@@ -92,19 +92,19 @@ where `SET` is one of the four following evaluation sets (`eval_set` in `orders`
       6. Is this product has been purchased in the last three order of the user (capture recency)
       <br><br>
       
-  This is pretty much the features I've generated, among the features, the most important feature selected by the model is the **avaerge add to cart order of the product** and **Is this product has been purchased in the last three order of the user** which capture the recency of the behavioral pattern of the users.
+  This is pretty much the features I've generated, among the features, the most important feature selected by the model is the **average add to cart order of the product** and **Is this product has been purchased in the last three order of the user** which capture the recency of the behavioral pattern of the users.
  
   The important finding in this feature engineering part is:
   
-  1) Remove highly correlated features (corr > 95%) before putting the variables into the xgboost models, even thought the xgboost models handle perfectly the correlation with the same importance due to the way it splits the features, but by removing the the correlated variables, the model could get similar or better performance by choosing only one of them and not to mention the decrease of the computing time.
+  1) Remove highly correlated features (corr > 95%) before putting the variables into the xgboost models, even though the xgboost models handle perfectly the correlation with the same importance due to the way it splits the features, but by removing the correlated variables, the model could get similar or better performance by choosing only one of them and not to mention the decrease of the computing time.
   
-  2) Kaggler @raddar shared one of his way to examine if the variable is important at one [post](https://www.kaggle.com/c/instacart-market-basket-analysis/discussion/36859) which I found really useful:     "Take new feature, bin it into lets say 50 attributes. Now take your best model out-of-fold predictions. Then for each bin, calculate mean target rate (if you are using binary model) and mean predicted probability of your classifier. if you see high difference between mean and predicted values in any of attributes (which has significant amount of observations), the feature is likely to reduce the binomial variance if included in the new model." in two words, for continuous features, split them into 20-50 buckets and measure diversity by the mean of the target.
+  2) Kaggler @raddar shared one of his way to examine if the variable is important at one [post](https://www.kaggle.com/c/instacart-market-basket-analysis/discussion/36859) which I found really useful:     "Take new feature, bin it into let's say 50 attributes. Now take your best model out-of-fold predictions. Then for each bin, calculate mean target rate (if you are using binary model) and mean predicted probability of your classifier. if you see high difference between mean and predicted values in any of attributes (which has significant amount of observations), the feature is likely to reduce the binomial variance if included in the new model." in two words, for continuous features, split them into 20-50 buckets and measure diversity by the mean of the target.
   
-  3) Add binary attribute feature of the product (gluten-free/asian food/organic/pet), for example, if a user has a cat/dog, it's possible that he/she will reorder product for the pet, or if he/she likes asian food or organic food, it's more likely that they will more it more frequently than others,etc.
+  3) Add binary attribute feature of the product (gluten-free/Asian food/organic/pet), for example, if a user has a cat/dog, it's possible that he/she will reorder product for the pet, or if he/she likes Asian food or organic food, it's more likely that they will more it more frequently than others, etc.
   
-  4) use max/mean and std of the numeric datetime features when it comes to describe the gap between a user and the time he placed an order.
+  4) use max/mean and std of the numeric datetime features when it comes to describing the gap between a user and the time he placed an order.
   
-  5) I didn't implement product text feature in the model,but people who got a good final score have used this feature, in summary here it's their approach (summary from [@SVJ24](https://www.kaggle.com/c/instacart-market-basket-analysis/discussion/38120),[@plantsgo](https://github.com/plantsgo/Instacart-Market-Basket-Analysis/blob/master/products_Word2Vec_features.py),[@Arcady27](https://www.kaggle.com/c/instacart-market-basket-analysis/discussion/38123)):
+  5) I didn't implement product text feature in the model, but people who got a good final score have used this feature, in summary here it's their approach (summary from [@SVJ24](https://www.kaggle.com/c/instacart-market-basket-analysis/discussion/38120),[@plantsgo](https://github.com/plantsgo/Instacart-Market-Basket-Analysis/blob/master/products_Word2Vec_features.py),[@Arcady27](https://www.kaggle.com/c/instacart-market-basket-analysis/discussion/38123)):
   
   * Product name length
   * Product name rarity: mean of idf of each word in a product (capture people who like exotic products)
@@ -114,14 +114,14 @@ where `SET` is one of the four following evaluation sets (`eval_set` in `orders`
     
     <img src="{{url}}/images/p2v.png" alt="picutre" style="width: 600px;"/> 
     
-    For example, in order #1, user brought product 49302, 11109, 10246, 49683, 43633, 13176,etc, so each product_id will be transformed into string and serve as a word to put into the w2v model to learn their vector representation, and use pca to reduce the dimension. 
+    For example, in order #1, the user brought product 49302, 11109, 10246, 49683, 43633, 13176, etc, so each product_id will be transformed into a string and serve as a word to put into the w2v model to learn their vector representation, and use PCA to reduce the dimension. 
      
   * User vector : 
     Treat each user as a document and order_id as sentence in that document.**group by user_id, sentence = each order of this user, product_id/aisle_id/deprtment_id as words.**
     <img src="{{url}}/images/d2v_1.png" alt="picutre" style="width: 600px;"/> 
     <img src="{{url}}/images/d2v_2.png" alt="picutre" style="width: 600px;"/> 
     
-    Treat every orders as sentences and product_id/aisle_id/department_id as words, and use user_id as the document label, so one document is ensemble user orders history and the document id is the user id. at the end you can get the word-embedding for a user.
+    Treat every order as sentences and product_id/aisle_id/department_id as words, and use user_id as the document label, so one document is ensemble user orders history and the document id is the user id. at the end, you can get the word-embedding for a user.
     
   * Product vector × User vector : 
     Use dot product to get the cosine similarity of between the user and product.
@@ -133,12 +133,12 @@ where `SET` is one of the four following evaluation sets (`eval_set` in `orders`
 
   * Model:
   
-    1. I used an xgboost model with logloss as evaluation metric, small learning rate is required I supposed, 0.01 seemed doing well among the [0.1,0.05,0.01].
+    1. I used a xgboost model with logloss as the evaluation metric, the small learning rate is required I supposed, 0.01 seemed to do well among the [0.1,0.05,0.01].
     2. predicting none model: binary model using the same feature but the target to predict the whole order if it contains reordered product(1) or just order  is ordered (1) vs not ordered(0)
 
   * CV: 
   <br><br>
-    I completely failed this steps which costed me my ranking, since I simply split the dataset into 70-30 and then train on the 70% for 3 folds cv, the final result of the competition (from 187th to 326th) proved my model to be overfitting (kinda expected)... As a matter of fact, the dataset should be split by user id since the reordering is targeted by user, essentially the model has to be accurate in the level of user, so as the cv framework. In simple words,the same user has to be presented in both train/test fold.
+    I completely failed this steps which cost me my ranking, since I simply split the dataset into 70-30 and then train on the 70% for 3 folds cv, the final result of the competition (from 187th to 326th) proved my model to be overfitting (kinda expected)... As a matter of fact, the dataset should be split by user id since the reordering is targeted by the user, essentially the model has to be accurate at the level of the user, so as the cv framework. In simple words, the same user has to be presented in both train/test fold.
   
 * Winner-solution:
     It's always good to learn from the best, so the links to the winner-solutions are attached:
@@ -149,6 +149,6 @@ where `SET` is one of the four following evaluation sets (`eval_set` in `orders`
     5. [43th place solution](https://www.kaggle.com/c/instacart-market-basket-analysis/discussion/38159)
 
   <br><br>
-    This competition is also really close to the scope of my current job, by being a part of this competition allows me to deal with the similar problem with new aspect especially in creating new features in a model to catch the behaviors of client, even thought I didn't gain any models but it certainly give me useful insights and experiences when it comes to this business problem, Have fun Kaggling!
+    This competition is also really close to the scope of my current job, by being a part of this competition allows me to deal with the similar problem with new aspect especially in creating new features in a model to catch the behaviors of the client, even though I didn't gain any models but it certainly gives me useful insights and experiences when it comes to this business problem, Have fun Kaggling!
 
  

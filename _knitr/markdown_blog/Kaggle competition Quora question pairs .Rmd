@@ -5,9 +5,9 @@ output: html_document
 date: 2017-08-14 
 ---
 
-  Quora question pairs competition ended two months ago in kaggle, it was my first serious kaggle competition and as final result I got a bronze medal for being in the top 8% position in the scoreboard.
+  The Quora question pairs competition ended two months ago in kaggle, it was my first serious kaggle competition and as the final result, I got a bronze medal for being in the top 8% position in the scoreboard.
 
-  Frankly speaking, this competition is so fierce that I remembered one Saturday before the competition ended, I was in top 3%, and when I checked on the following Monday I was pushed downed to top 7% already, and there are some really good kaggle masters competing there which really show me the huge gap between my model and theirs. That's the reason why I decide to write this blog to share the some take-aways from this competition and some useful features drawn from the winner solution shared in the discussion board after the competition ended.
+  Frankly speaking, this competition is so fierce that I remembered one Saturday before the competition ended, I was in top 3%, and when I checked on the following Monday I was pushed downed to top 7% already, and there are some really good kaggle masters competing there which really show me the huge gap between my model and theirs. That's the reason why I decided to write this blog to share some takeaways from this competition and some useful features drawn from the winner solution shared in the discussion board after the competition ended.
 
   * *[Quora](https://en.wikipedia.org/wiki/Quora "wikipedia") is a question-and-answer site where questions are asked, answered, edited and organized by its community of users. The website has [100 million unique visitors](https://www.quora.com/How-many-people-use-Quora-7 "how many people use Quora") per month as march of 2016.*
 
@@ -31,7 +31,7 @@ date: 2017-08-14
 
 #### My approaches: When we talk about building models...
 
-  The first thing to tackle a text mining problem is to turn the word into numeric representation so that the algorithm can 'understand' the word. To interpret the text there are usually two methods : 1)TFIDF 2)word2vec. For the TFIDF part I used bigram to get the words weighting and a pre-trained word2vec model for the word vector. My final model is a simple xgb model with 47 features under python 3.5 environment.
+  The first thing to tackle a text mining problem is to turn the word into numeric representation so that the algorithm can 'understand' the word. To interpret the text there are usually two methods: 1)TFIDF 2)word2vec. For the TFIDF part I used bigram to get the words weighting and a pre-trained word2vec model for the word vector. My final model is a simple xgb model with 47 features under python 3.5 environment.
 
   *The 'To try' part is resumed from the winning solution in the [discussion board](https://www.kaggle.com/c/quora-question-pairs/discussion 'discussion') after the competition ended*
 
@@ -52,7 +52,7 @@ To try:
 
 **2. Feature generation**
 
-Feature essentially plays a big part in this competition, the features I've used can be categorized as following:
+Feature generation plays an important role in text mining, and the features I've generated can be categorized as follows:
 
 1.NLP text features: The descriptive measure of two sentences.
 
@@ -78,14 +78,14 @@ Feature essentially plays a big part in this competition, the features I've used
 
 2.Distance features (mostly inspired by @abhishek, it really guided me into the competition): The distance between two vectors.
 
-    The vectors of words are constructed from pre-trained google news w2v model, I tried to build my own w2v model by using all the questions in both dataset but it didn't outperform the pre-trained one, I guess the reason is quite obvious due to the size of the corpus.
+    The vectors of words are constructed from pre-trained google news w2v model, I tried to build my own w2v model by using all the questions in both datasets but it didn't outperform the pre-trained one, I guess the reason is quite obvious due to the size of the corpus.
   
      1. Jaccard similarity
      2. Cosine similarity
      3. Euclidean distance
      4. Minkowski distance
      3. Levenshtein Distance 
-        (package *fuzzywuzzy* :string similarity/partial string similarity/token sort)
+        (package *fuzzywuzzy* : string similarity/partial string similarity/token sort)
      4. Word mover's distance
      
 *To try:*
@@ -94,11 +94,11 @@ Feature essentially plays a big part in this competition, the features I've used
      
 3.Graphical features:
   
-  I have absolutely zero knowledge at that time that this kind of features can be applied into a NLP competition which turns out to be a extremely important feature (thanks to Shankara Srivastava's idea of pagerank feature). In the social network analysis, you can see a lot of this kind of graphical analysis as well.
+  I have absolutely zero knowledge at that time that this kind of features can be applied to an NLP competition which turns out to be an extremely important feature (thanks to Shankara Srivastava's idea of PageRank feature). In the social network analysis, you can see a lot of this kind of graphical analysis as well.
   
   <img src="{{url}}/images/a.jpg" alt="pic" style="width: 400px;"/>
   
-  Basically,every question is node in the graph, the degree of node here can be seen as the frequency of this question, and the common neighbors for the two node.
+  Basically, every question is node in the graph, the degree of node here can be seen as the frequency of this question, and the common neighbors for the two nodes.
   
   
 *To try:*
@@ -110,7 +110,7 @@ Feature essentially plays a big part in this competition, the features I've used
 
 **3. Imbalanced dataset**
 
-  In the training dataset, since the percentage of duplicate question is 36.9%, it's important to rebalance the dataset, and there are lots of methods to deal with this problem i.e. oversample (oversample the minority class) , undersample (undersampling the majority class). But instead of using the two sampling methods above, i used the class weight in the xgb Matrix argument to let the model treat two class differently. It turned out to be quite effective, which helped me at least with 0,02 improvement.
+  In the training dataset, since the percentage of duplicate question is 36.9%, it's important to rebalance the dataset, and there are lots of methods to deal with this problem i.e. oversample (oversample the minority class), undersample (undersampling the majority class). But instead of using the two sampling methods above, I used the class weight in the xgb Matrix argument to let the model treat two class differently. It turned out to be quite effective, which helped me at least with 0,02 improvement.
 
 
 **4. Conclusion**
